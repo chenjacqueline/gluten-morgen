@@ -21,6 +21,8 @@ class Game {
 
     this.qtyCroissant = Math.floor(Math.random() * 5 + 1);
     this.qtyBrezel = Math.floor(Math.random() * 5 + 1);
+
+    this.orderCount = 0;
   }
 
   draw() {
@@ -77,6 +79,23 @@ class Game {
     document.querySelector("#croissant .needed").innerText = this.qtyCroissant;
     document.querySelector("#brezel .needed").innerText = this.qtyBrezel;
   }
+
+  level() {
+    document.querySelector("#completed-orders p").innerText = this.orderCount;
+
+    if (
+      this.collectedCroissant === this.qtyCroissant &&
+      this.collectedBrezel === this.qtyBrezel
+    ) {
+      this.orderCount += 1;
+      alert("Yay! You've completed an order!");
+      this.qtyCroissant = Math.floor(Math.random() * 5 + 1);
+      this.qtyBrezel = Math.floor(Math.random() * 5 + 1);
+      game.orders();
+      document.querySelector("#croissant .status").innerText = 0;
+      document.querySelector("#brezel .status").innerText = 0;
+    }
+  }
 }
 
 const game = new Game();
@@ -95,6 +114,7 @@ function setup() {
 
 function draw() {
   game.draw();
+  game.level();
 }
 
 function keyPressed() {
