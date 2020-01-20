@@ -18,15 +18,49 @@ body {
 
 #game {
   padding-top: 90px;
-  /* height: 100vh; */
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
 }
 
-#orders {
+.panel {
   background-color: var(--yellow);
   height: 550px;
   width: 325px;
+}
+
+h1 {
+  font-size: 16px;
+}
+
+.order-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.label {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.label > img {
+  padding-right: 20px;
+}
+
+#berliner {
+  visibility: hidden;
+}
+
+#laugenecke {
+  visibility: hidden;
+}
+
+#zimtschnecke {
+  visibility: hidden;
 }

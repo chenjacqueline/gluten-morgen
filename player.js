@@ -33,7 +33,7 @@ class Player {
 
   jump() {
     if (this.jumpCount < 2) {
-      this.velocity = -8;
+      this.velocity = -8.5;
       this.jumpCount += 1;
     }
   }

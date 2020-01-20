@@ -29,9 +29,8 @@ class Pastry {
     if (this.x + this.width < player.x || player.x + player.width < this.x) {
       return false;
     }
-    if (player.y > this.y + this.height || player.y + player.height < this.y) {
+    if (player.y > this.y + this.height || player.y + player.height < this.y)
       return false;
-    }
     return true;
   }
 }

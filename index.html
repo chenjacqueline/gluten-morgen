@@ -10,8 +10,54 @@
   </head>
   <body>
     <div id="game">
+      <!-- P5 Canvas -->
       <div id="canvas"></div>
-      <div id="orders"></div>
+
+      <!-- Right hand panel -->
+      <div class="panel">
+        <!-- Current order -->
+        <div id="current-order">
+          <h1>Current order:</h1>
+
+          <div id="croissant" class="order-item">
+            <div class="label">
+              <img src="assets/img-croissant.png" height="40px" />
+              <p>Croissants</p>
+            </div>
+            <div class="order-item-count">
+              <span class="status">0</span> / <span class="needed">5</span>
+            </div>
+          </div>
+
+          <div id="brezel" class="order-item">
+            <div class="label">
+              <img src="assets/img-brezel.png" height="40px" />
+              <p>Brezeln</p>
+            </div>
+            <div class="order-item-count">
+              <span class="status">0</span> / <span class="needed">5</span>
+            </div>
+          </div>
+
+          <div id="berliner" class="order-item">
+            <span class="status">0</span> / <span class="needed">5</span>
+          </div>
+
+          <div id="laugenecke" class="order-item">
+            <span class="status">0</span> / <span class="needed">5</span>
+          </div>
+
+          <div id="zimtschnecke" class="order-item">
+            <span class="status">0</span> / <span class="needed">5</span>
+          </div>
+        </div>
+
+        <!-- Completed Orders -->
+        <div id="completed-orders">
+          <h1>Completed orders:</h1>
+          <p>100</p>
+        </div>
+      </div>
     </div>
     <script src="background.js"></script>
     <script src="player.js"></script>

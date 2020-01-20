@@ -1,7 +1,6 @@
 class Game {
   constructor() {
     this.pastries = [];
-    // this.pastryGraphics = [];
   }
 
   preload() {
@@ -16,6 +15,9 @@ class Game {
       loadImage("assets/img-croissant.png"),
       loadImage("assets/img-brezel.png")
     ];
+
+    this.collectedCroissant = 0;
+    this.collectedBrezel = 0;
   }
 
   draw() {
@@ -25,16 +27,31 @@ class Game {
       this.pastries.push(new Pastry());
     }
 
-    this.pastries = this.pastries.filter(
-      function(pastry) {
-        // Remove pastries that have no collision AND left the canvas
-        // If it doesn't collide and is still within the canvas, then add to array
-        if (!pastry.collides(this.player) && pastry.x + pastry.width >= 0) {
-          return true;
-        }
-        // Need to bind so that the pastry has access to the Game class
-      }.bind(this)
-    );
+    for (let i = 0; i < this.pastries.length - 1; i++) {
+      if (
+        this.pastries[i].collides(this.player) &&
+        this.pastries[i].randomIndex === 0
+      ) {
+        this.pastries.splice(i, 1);
+        this.collectedCroissant += 1;
+        document.querySelector(
+          "#croissant .status"
+        ).innerText = this.collectedCroissant;
+        // console.log("collected croissants: ", this.collectedCroissant);
+      }
+
+      if (
+        this.pastries[i].collides(this.player) &&
+        this.pastries[i].randomIndex === 1
+      ) {
+        this.pastries.splice(i, 1);
+        this.collectedBrezel += 1;
+        document.querySelector(
+          "#brezel .status"
+        ).innerText = this.collectedBrezel;
+        // console.log("collected pretzels: ", this.collectedBrezel);
+      }
+    }
 
     // For all the pastries that made it into the array, draw them
     this.pastries.forEach(function(pastry) {
@@ -42,6 +59,17 @@ class Game {
     });
 
     this.player.draw();
+  }
+
+  orders() {
+    let qtyCroissant = Math.floor(Math.random() * 5 + 1);
+    let qtyBrezel = Math.floor(Math.random() * 5 + 1);
+
+    document.querySelector("#croissant .needed").innerText = qtyCroissant;
+    document.querySelector("#brezel .needed").innerText = qtyBrezel;
+
+    // console.log("croissant: " + "0/" + qtyCroissant);
+    // console.log("brezel: " + "0/" + qtyBrezel);
   }
 }
 
@@ -56,6 +84,7 @@ function setup() {
   let cnv = createCanvas(800, 550);
   cnv.parent("canvas");
   game.player.setup();
+  game.orders();
 }
 
 function draw() {
