@@ -5,12 +5,12 @@ class Background {
       {
         src: loadImage("assets/bg-back.png"),
         x: 0,
-        speed: 4.5
+        speed: 5
       },
       {
         src: loadImage("assets/bg-front.png"),
         x: 0,
-        speed: 5
+        speed: 6
       }
     ];
   }

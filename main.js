@@ -10,6 +10,10 @@ class Game {
   setup() {
     this.background = new Background();
     this.player = new Player();
+    this.imgOrderCompleted = loadImage("assets/success-order-complete.png");
+    this.imgGameOver = loadImage("assets/game-over.png");
+
+    // document.querySelector("#canvas > img").style.visibility = "hidden";
 
     this.pastryGraphics = [
       loadImage("assets/img-croissant.png"),
@@ -28,7 +32,7 @@ class Game {
   draw() {
     this.background.draw();
 
-    if (frameCount % 120 === 0) {
+    if (frameCount % 140 === 0) {
       this.pastries.push(new Pastry());
     }
 
@@ -61,17 +65,6 @@ class Game {
       pastry.draw();
     });
 
-    // Error handling for over-collection:
-    if (this.collectedCroissant > this.qtyCroissant) {
-      noLoop();
-      alert("Oops! Looks like you've grabbed one too many croissants.");
-    }
-
-    if (this.collectedBrezel > this.qtyBrezel) {
-      noLoop();
-      alert("Oops! Look like you've grabbed one too many brezeln.");
-    }
-
     this.player.draw();
   }
 
@@ -88,12 +81,36 @@ class Game {
       this.collectedBrezel === this.qtyBrezel
     ) {
       this.orderCount += 1;
-      alert("Yay! You've completed an order!");
+      background(this.imgOrderCompleted);
+      noLoop();
+
       this.qtyCroissant = Math.floor(Math.random() * 5 + 1);
       this.qtyBrezel = Math.floor(Math.random() * 5 + 1);
       game.orders();
+      this.collectedCroissant = 0;
+      this.collectedBrezel = 0;
       document.querySelector("#croissant .status").innerText = 0;
       document.querySelector("#brezel .status").innerText = 0;
+
+      setTimeout(function() {
+        loop();
+      }, 1500);
+    }
+
+    // Error handling for over-collection:
+    if (
+      this.collectedCroissant > this.qtyCroissant ||
+      this.collectedBrezel > this.qtyBrezel
+    ) {
+      background(this.imgGameOver);
+      noLoop();
+
+      this.collectedCroissant = 0;
+      this.collectedBrezel = 0;
+
+      //   setTimeout(function() {
+      //     loop();
+      //   }, 1500);
     }
   }
 }
@@ -107,6 +124,7 @@ function preload() {
 
 function setup() {
   let cnv = createCanvas(800, 550);
+  textAlign(CENTER, CENTER);
   cnv.parent("canvas");
   game.player.setup();
   game.orders();

@@ -14,9 +14,11 @@ body {
   overflow-y: hidden;
   padding: 0; /*just added to check */
   margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #game {
+  /* width: 1350px; */
   padding-top: 90px;
   display: flex;
   flex-direction: row;
@@ -24,13 +26,18 @@ body {
   align-items: flex-start;
 }
 
+#canvas {
+  width: 800px;
+}
+
 .panel {
-  background-color: var(--yellow);
+  background-color: var(--sand);
   height: 550px;
   width: 325px;
 }
 
-h1 {
+h2 {
+  padding: 8px 16px;
   font-size: 16px;
 }
 
@@ -63,4 +70,8 @@ h1 {
 
 #zimtschnecke {
   visibility: hidden;
+}
+
+#completed-orders {
+  text-align: center;
 }
