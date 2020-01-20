@@ -7,7 +7,7 @@ class Pastry {
 
     // We want the obstacles to start from the right edge of the canvas and move towards the player:
     this.x = width;
-    this.y = random(80, 410); // Randomize the y-axis position; random is a p5 function that accepts a range
+    this.y = random(80, 370); // Randomize the y-axis position; random is a p5 function that accepts a range
     // this.counter = 0;
   }
 

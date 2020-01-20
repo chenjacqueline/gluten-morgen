@@ -18,6 +18,9 @@ class Game {
 
     this.collectedCroissant = 0;
     this.collectedBrezel = 0;
+
+    this.qtyCroissant = Math.floor(Math.random() * 5 + 1);
+    this.qtyBrezel = Math.floor(Math.random() * 5 + 1);
   }
 
   draw() {
@@ -37,7 +40,6 @@ class Game {
         document.querySelector(
           "#croissant .status"
         ).innerText = this.collectedCroissant;
-        // console.log("collected croissants: ", this.collectedCroissant);
       }
 
       if (
@@ -49,27 +51,31 @@ class Game {
         document.querySelector(
           "#brezel .status"
         ).innerText = this.collectedBrezel;
-        // console.log("collected pretzels: ", this.collectedBrezel);
       }
     }
 
-    // For all the pastries that made it into the array, draw them
+    // For all the pastries that made it into the array, draw them:
     this.pastries.forEach(function(pastry) {
       pastry.draw();
     });
+
+    // Error handling for over-collection:
+    if (this.collectedCroissant > this.qtyCroissant) {
+      noLoop();
+      alert("Oops! Looks like you've grabbed one too many croissants.");
+    }
+
+    if (this.collectedBrezel > this.qtyBrezel) {
+      noLoop();
+      alert("Oops! Look like you've grabbed one too many brezeln.");
+    }
 
     this.player.draw();
   }
 
   orders() {
-    let qtyCroissant = Math.floor(Math.random() * 5 + 1);
-    let qtyBrezel = Math.floor(Math.random() * 5 + 1);
-
-    document.querySelector("#croissant .needed").innerText = qtyCroissant;
-    document.querySelector("#brezel .needed").innerText = qtyBrezel;
-
-    // console.log("croissant: " + "0/" + qtyCroissant);
-    // console.log("brezel: " + "0/" + qtyBrezel);
+    document.querySelector("#croissant .needed").innerText = this.qtyCroissant;
+    document.querySelector("#brezel .needed").innerText = this.qtyBrezel;
   }
 }
 
