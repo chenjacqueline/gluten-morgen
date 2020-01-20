@@ -1,0 +1,32 @@
+/* Note to self: Call with var(--colorname) */
+:root {
+  --linen: #f7f2ec;
+  --sand: #f2e3c2;
+  --salmon: #efa57e;
+  --green: #008281;
+  --blue: #83aac8;
+  --yellow: #f1c77b;
+  --red: #e26b00;
+}
+
+body {
+  background: var(--linen);
+  overflow-y: hidden;
+  padding: 0; /*just added to check */
+  margin: 0;
+}
+
+#game {
+  padding-top: 90px;
+  /* height: 100vh; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#orders {
+  background-color: var(--yellow);
+  height: 550px;
+  width: 325px;
+}
