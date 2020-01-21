@@ -2,7 +2,7 @@ class Player {
   constructor() {
     this.img = loadImage("assets/baker.png");
     this.velocity = 0;
-    this.gravity = 0.25;
+    this.gravity = 0.3;
     this.jumpCount = 0;
   }
 
@@ -32,7 +32,7 @@ class Player {
   }
 
   jump() {
-    if (this.jumpCount < 2) {
+    if (this.jumpCount < 3) {
       this.velocity = -9;
       this.jumpCount += 1;
     }

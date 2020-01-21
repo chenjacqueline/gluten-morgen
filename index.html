@@ -24,44 +24,61 @@
       <div class="panel">
         <!-- Current order -->
         <div id="current-order">
-          <h2>Current order:</h2>
+          <img class="banner" src="assets/img-current-order.png"/>
 
           <div id="croissant" class="order-item">
             <div class="label">
-              <img src="assets/img-croissant.png" height="40px" />
+              <img src="assets/img-croissant.png" />
               <p>Croissants</p>
             </div>
             <div class="order-item-count">
-              <span class="status">0</span> / <span class="needed">5</span>
+              <span class="collected">0</span> / <span class="needed">5</span>
             </div>
           </div>
 
           <div id="brezel" class="order-item">
             <div class="label">
-              <img src="assets/img-brezel.png" height="40px" />
+              <img src="assets/img-brezel.png" />
               <p>Brezeln</p>
             </div>
             <div class="order-item-count">
-              <span class="status">0</span> / <span class="needed">5</span>
+              <span class="collected">0</span> / <span class="needed">5</span>
             </div>
           </div>
 
           <div id="berliner" class="order-item">
-            <span class="status">0</span> / <span class="needed">5</span>
+            <div class="label">
+              <img src="assets/img-berliner.png" />
+              <p>Berliners</p>
+            </div>
+            <div class="order-item-count">
+              <span class="collected">0</span> / <span class="needed">5</span>
+            </div>
           </div>
 
           <div id="laugenecke" class="order-item">
-            <span class="status">0</span> / <span class="needed">5</span>
+            <div class="label">
+              <img src="assets/img-laugenecke.png" />
+              <p>Laugenecken</p>
+            </div>
+            <div class="order-item-count">
+              <span class="collected">0</span> / <span class="needed">5</span>
+            </div>
           </div>
 
           <div id="zimtschnecke" class="order-item">
-            <span class="status">0</span> / <span class="needed">5</span>
+            <div class="label">
+              <img src="assets/img-zimtschnecke.png" />
+              <p>Zimtschnecken</p>
+            </div>
+            <div class="order-item-count">
+              <span class="collected">0</span> / <span class="needed">5</span>
+            </div>
           </div>
-        </div>
 
         <!-- Completed Orders -->
         <div id="completed-orders">
-          <h2>Completed orders:</h2>
+          <img class="banner" src="assets/img-completed-orders.png"/>
           <p>100</p>
         </div>
       </div>
@@ -69,7 +86,7 @@
     <script src="background.js"></script>
     <script src="player.js"></script>
     <script src="pastries.js"></script>
-    <script src="success.js"></script>
+    <script src="game.js"></script>
     <script src="main.js"></script>
   </body>
 </html>

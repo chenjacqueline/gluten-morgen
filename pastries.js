@@ -1,9 +1,9 @@
 class Pastry {
-  constructor() {
+  constructor(randomIndex) {
     // The width and height of the obstacle graphic:
     this.width = 50;
     this.height = 43;
-    this.randomIndex = Math.floor(Math.random() * 2); // Should randomly generate 0 or 1 (only 2 items for now)
+    this.randomIndex = randomIndex;
 
     // We want the obstacles to start from the right edge of the canvas and move towards the player:
     this.x = width;
@@ -12,7 +12,7 @@ class Pastry {
   }
 
   draw() {
-    this.x -= 3;
+    this.x -= 5;
     // rect(this.x, this.y, this.width, this.height);
 
     image(
