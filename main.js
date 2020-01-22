@@ -19,4 +19,7 @@ function keyPressed() {
   if (keyCode === 32) {
     game.player.jump();
   }
+  if (game.orderCount === -1 && keyCode === 13) {
+    game.restart();
+  }
 }

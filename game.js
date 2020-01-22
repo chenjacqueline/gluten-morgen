@@ -29,6 +29,14 @@ class Game {
       loadImage("assets/img-laugenecke.png"),
       loadImage("assets/img-zimtschnecke.png")
     ];
+
+    this.collectionGraphics = [
+      loadImage("assets/yum-blue.png"),
+      loadImage("assets/yum-green.png"),
+      loadImage("assets/yum-red.png"),
+      loadImage("assets/yum-salmon.png"),
+      loadImage("assets/yum-yellow.png")
+    ];
   }
 
   draw() {
@@ -124,9 +132,8 @@ class Game {
 
   reset() {
     this.orderCount += 1;
-    background(this.imgOrderCompleted);
+    document.querySelector(".success").style.display = "block";
     noLoop();
-    // game.reset();
 
     // Resetting amounts of collected pastries for new round
     this.collectedCroissant = 0;
@@ -149,8 +156,9 @@ class Game {
     game.orders();
 
     setTimeout(function() {
+      document.querySelector(".success").style.display = "none";
       loop();
-    }, 1500);
+    }, 2000);
   }
 
   level() {
@@ -195,18 +203,42 @@ class Game {
     // Error handling for over-collection:
     if (
       this.collectedCroissant > this.qtyCroissant ||
-      this.collectedBrezel > this.qtyBrezel
+      this.collectedBrezel > this.qtyBrezel ||
+      this.collectedBerliner > this.qtyBerliner ||
+      this.collectedLaugenecke > this.qtyLaugenecke ||
+      this.collectedZimtschnecke > this.collectedZimtschnecke
     ) {
       background(this.imgGameOver);
       noLoop();
-
-      this.collectedCroissant = 0;
-      this.collectedBrezel = 0;
-
-      //   setTimeout(function() {
-      //     loop();
-      //   }, 1500);
+      // Choosing a random # to represent game over state for keyPressed function:
+      this.orderCount = -1;
     }
+  }
+
+  restart() {
+    this.pastries = [];
+    this.orderCount = 0;
+
+    // Resetting amounts of collected pastries for new round
+    this.collectedCroissant = 0;
+    this.collectedBrezel = 0;
+    this.collectedBerliner = 0;
+    this.collectedLaugenecke = 0;
+    this.collectedZimtschnecke = 0;
+    document.querySelector("#croissant .collected").innerText = 0;
+    document.querySelector("#brezel .collected").innerText = 0;
+    document.querySelector("#berliner .collected").innerText = 0;
+    document.querySelector("#laugenecke .collected").innerText = 0;
+    document.querySelector("#zimtschnecke .collected").innerText = 0;
+
+    // Resetting the needed quantities for each pastry
+    this.qtyCroissant = Math.floor(Math.random() * 4 + 1);
+    this.qtyBrezel = Math.floor(Math.random() * 4 + 1);
+    this.qtyBerliner = Math.floor(Math.random() * 4 + 1);
+    this.qtyLaugenecke = Math.floor(Math.random() * 4 + 1);
+    this.qtyZimtschnecke = Math.floor(Math.random() * 4 + 1);
+    game.orders();
+    loop();
   }
 }
 

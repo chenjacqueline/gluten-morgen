@@ -34,11 +34,18 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  /* border: 8px solid white; */
+  height: 550px;
+  border: 8px solid white;
 }
 
 #canvas {
   width: 800px;
+}
+
+.success {
+  display: none;
+  position: fixed;
+  z-index: 1;
 }
 
 .panel {
