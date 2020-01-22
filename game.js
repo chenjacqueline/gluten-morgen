@@ -15,6 +15,7 @@ class Game {
 
     this.collected = document.getElementsByClassName("collected");
     this.orderCount = 0;
+    this.frames = 100;
   }
 
   setup() {
@@ -23,6 +24,9 @@ class Game {
     this.player = new Player();
     this.imgOrderCompleted = loadImage("assets/success-order-complete.png");
     this.imgGameOver = loadImage("assets/game-over.png");
+    this.collect = loadSound("assets/audio/collect.mp3");
+    this.success = loadSound("assets/audio/success.wav");
+    this.gameover = loadSound("assets/audio/gameover.mp3");
 
     this.pastryGraphics = [
       loadImage("assets/img-croissant.png"),
@@ -45,16 +49,28 @@ class Game {
     // Generating pastries in the game
     this.background.draw();
 
-    if (frameCount % 100 === 0) {
-      // Check level to manage range of index values to pass to pastry constructor argument:
+    if (frameCount % this.frames === 0) {
+      // Check level to manage range of index values to pass to pastry constructor argument and increase speed:
       if (this.orderCount < 2) {
         this.pastries.push(new Pastry(Math.floor(Math.random() * 2)));
       } else if (this.orderCount >= 2 && this.orderCount < 5) {
         this.pastries.push(new Pastry(Math.floor(Math.random() * 3)));
+        this.frames = 90;
+        this.background.images[0].speed = 8;
+        this.background.images[1].speed = 10;
+        this.background.images[2].speed = 12;
       } else if (this.orderCount >= 5 && this.orderCount < 8) {
         this.pastries.push(new Pastry(Math.floor(Math.random() * 4)));
+        this.frames = 80;
+        this.background.images[0].speed = 9;
+        this.background.images[1].speed = 11;
+        this.background.images[2].speed = 13;
       } else if (this.orderCount >= 8) {
         this.pastries.push(new Pastry(Math.floor(Math.random() * 5)));
+        this.frames = 65;
+        this.background.images[0].speed = 11;
+        this.background.images[1].speed = 13;
+        this.background.images[2].speed = 15;
       }
     }
 
@@ -64,8 +80,10 @@ class Game {
         this.pastries[i].collides(this.player) &&
         this.pastries[i].randomIndex === 0
       ) {
+        // this.collectSound.play();
         this.pastries.splice(i, 1);
         this.collectedCroissant += 1;
+        this.collect.play();
         document.querySelector(
           "#croissant .collected"
         ).innerText = this.collectedCroissant;
@@ -77,6 +95,7 @@ class Game {
       ) {
         this.pastries.splice(i, 1);
         this.collectedBrezel += 1;
+        this.collect.play();
         document.querySelector(
           "#brezel .collected"
         ).innerText = this.collectedBrezel;
@@ -87,6 +106,7 @@ class Game {
       ) {
         this.pastries.splice(i, 1);
         this.collectedBerliner += 1;
+        this.collect.play();
         document.querySelector(
           "#berliner .collected"
         ).innerText = this.collectedBerliner;
@@ -97,6 +117,7 @@ class Game {
       ) {
         this.pastries.splice(i, 1);
         this.collectedLaugenecke += 1;
+        this.collect.play();
         document.querySelector(
           "#laugenecke .collected"
         ).innerText = this.collectedLaugenecke;
@@ -108,6 +129,7 @@ class Game {
       ) {
         this.pastries.splice(i, 1);
         this.collectedZimtschnecke += 1;
+        this.collect.play();
         document.querySelector(
           "#zimtschnecke .collected"
         ).innerText = this.collectedZimtschnecke;
@@ -138,6 +160,7 @@ class Game {
   reset() {
     // Resetting things after an order completion
     this.orderCount += 1;
+    this.success.play();
 
     document.querySelector(".success").src = getRandom();
     document.querySelector(".success").style.display = "block";
@@ -241,7 +264,7 @@ class Game {
       this.collectedZimtschnecke > this.collectedZimtschnecke
     ) {
       background(this.imgGameOver);
-      bgMusic.stop(1);
+      this.gameover.play();
       noLoop();
       // Setting a random value represent game over state for keyPressed function:
       this.orderCount = "-";
