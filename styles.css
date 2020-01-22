@@ -78,6 +78,10 @@ body {
   padding-right: 20px;
 }
 
+.inactive {
+  filter: grayscale(90%);
+}
+
 .label {
   display: flex;
   flex-direction: row;

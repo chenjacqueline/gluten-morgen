@@ -3,6 +3,11 @@ class Background {
     this.bgY = 0;
     this.images = [
       {
+        src: loadImage("assets/bg-sky.png"),
+        x: 0,
+        speed: 6
+      },
+      {
         src: loadImage("assets/bg-back.png"),
         x: 0,
         speed: 8

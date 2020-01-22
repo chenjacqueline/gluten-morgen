@@ -13,10 +13,12 @@ class Game {
     this.qtyLaugenecke = Math.floor(Math.random() * 5 + 1);
     this.qtyZimtschnecke = Math.floor(Math.random() * 5 + 1);
 
+    this.collected = document.getElementsByClassName("collected");
     this.orderCount = 0;
   }
 
   setup() {
+    // Called in P5 preload
     this.background = new Background();
     this.player = new Player();
     this.imgOrderCompleted = loadImage("assets/success-order-complete.png");
@@ -40,6 +42,7 @@ class Game {
   }
 
   draw() {
+    // Generating pastries in the game
     this.background.draw();
 
     if (frameCount % 100 === 0) {
@@ -119,6 +122,7 @@ class Game {
   }
 
   orders() {
+    // Generating randomized orders
     document.querySelector("#croissant .needed").innerText = this.qtyCroissant;
     document.querySelector("#brezel .needed").innerText = this.qtyBrezel;
     document.querySelector("#berliner .needed").innerText = this.qtyBerliner;
@@ -131,23 +135,30 @@ class Game {
   }
 
   reset() {
+    // Resetting things after an order completion
     this.orderCount += 1;
+
+    document.querySelector(".success").src = getRandom();
     document.querySelector(".success").style.display = "block";
     noLoop();
 
-    // Resetting amounts of collected pastries for new round
+    // Resetting inactive state for all pastry graphics in the order:
+    const icons = document.getElementsByClassName("icon");
+    for (const icon of icons) {
+      icon.classList.add("inactive");
+    }
+
+    // Resetting amounts of collected pastries for new round:
     this.collectedCroissant = 0;
     this.collectedBrezel = 0;
     this.collectedBerliner = 0;
     this.collectedLaugenecke = 0;
     this.collectedZimtschnecke = 0;
-    document.querySelector("#croissant .collected").innerText = 0;
-    document.querySelector("#brezel .collected").innerText = 0;
-    document.querySelector("#berliner .collected").innerText = 0;
-    document.querySelector("#laugenecke .collected").innerText = 0;
-    document.querySelector("#zimtschnecke .collected").innerText = 0;
+    for (const item of this.collected) {
+      item.innerText = 0;
+    }
 
-    // Resetting the needed quantities for each pastry
+    // Resetting the needed quantities for each pastry:
     this.qtyCroissant = Math.floor(Math.random() * 4 + 1);
     this.qtyBrezel = Math.floor(Math.random() * 4 + 1);
     this.qtyBerliner = Math.floor(Math.random() * 4 + 1);
@@ -162,15 +173,35 @@ class Game {
   }
 
   level() {
+    // Always running with the draw()
     document.querySelector("#completed-orders p").innerText = this.orderCount;
 
-    // Reveal more pastry types as level increases:
+    // Reveal more pastry types in the order as level increases:
     if (this.orderCount >= 2 && this.orderCount < 5) {
       document.querySelector("#berliner").style.visibility = "visible";
     } else if (this.orderCount >= 5 && this.orderCount < 8) {
       document.querySelector("#laugenecke").style.visibility = "visible";
     } else if (this.orderCount >= 8) {
       document.querySelector("#zimtschnecke").style.visibility = "visible";
+    }
+
+    // Manage active and inactive states of pastry icon (dependent on completion status):
+    if (this.collectedCroissant === this.qtyCroissant) {
+      document.querySelector("#croissant .icon").classList.remove("inactive");
+    }
+    if (this.collectedBrezel === this.qtyBrezel) {
+      document.querySelector("#brezel .icon").classList.remove("inactive");
+    }
+    if (this.collectedBerliner === this.qtyBerliner) {
+      document.querySelector("#berliner .icon").classList.remove("inactive");
+    }
+    if (this.collectedLaugenecke === this.qtyLaugenecke) {
+      document.querySelector("#laugenecke .icon").classList.remove("inactive");
+    }
+    if (this.collectedZimtschnecke === this.qtyZimtschnecke) {
+      document
+        .querySelector("#zimtschnecke .icon")
+        .classList.remove("inactive");
     }
 
     // Reset the game whenever the order is completed, depending on the level:
@@ -210,12 +241,13 @@ class Game {
     ) {
       background(this.imgGameOver);
       noLoop();
-      // Choosing a random # to represent game over state for keyPressed function:
-      this.orderCount = -1;
+      // Setting a random value represent game over state for keyPressed function:
+      this.orderCount = "-";
     }
   }
 
   restart() {
+    // For restarting the game entirely:
     this.pastries = [];
     this.orderCount = 0;
 
@@ -225,11 +257,21 @@ class Game {
     this.collectedBerliner = 0;
     this.collectedLaugenecke = 0;
     this.collectedZimtschnecke = 0;
-    document.querySelector("#croissant .collected").innerText = 0;
-    document.querySelector("#brezel .collected").innerText = 0;
-    document.querySelector("#berliner .collected").innerText = 0;
-    document.querySelector("#laugenecke .collected").innerText = 0;
-    document.querySelector("#zimtschnecke .collected").innerText = 0;
+
+    for (const item of this.collected) {
+      item.innerText = 0;
+    }
+
+    // Removing elements from panel:
+    document.querySelector("#berliner").style.visibility = "hidden";
+    document.querySelector("#laugenecke").style.visibility = "hidden";
+    document.querySelector("#zimtschnecke").style.visibility = "hidden";
+
+    // Resetting inactive state for all pastry graphics in the order:
+    const icons = document.getElementsByClassName("icon");
+    for (const icon of icons) {
+      icon.classList.add("inactive");
+    }
 
     // Resetting the needed quantities for each pastry
     this.qtyCroissant = Math.floor(Math.random() * 4 + 1);
