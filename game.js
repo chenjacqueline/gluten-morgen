@@ -58,6 +58,7 @@ class Game {
       }
     }
 
+    // Collisions, removal of pastry from canvas, adding to collection count:
     for (let i = 0; i < this.pastries.length - 1; i++) {
       if (
         this.pastries[i].collides(this.player) &&
@@ -240,6 +241,7 @@ class Game {
       this.collectedZimtschnecke > this.collectedZimtschnecke
     ) {
       background(this.imgGameOver);
+      bgMusic.stop(1);
       noLoop();
       // Setting a random value represent game over state for keyPressed function:
       this.orderCount = "-";
