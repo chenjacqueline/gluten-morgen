@@ -16,32 +16,28 @@ class Game {
     this.collected = document.getElementsByClassName("collected");
     this.orderCount = 0;
     this.frames = 100;
+    this.colorfulBaker = false;
   }
 
   setup() {
     // Called in P5 preload
     this.background = new Background();
     this.player = new Player();
-    this.imgOrderCompleted = loadImage("assets/success-order-complete.png");
     this.imgGameOver = loadImage("assets/game-over.png");
+
+    // Load audio files
     this.collect = loadSound("assets/audio/collect.mp3");
     this.success = loadSound("assets/audio/success.wav");
     this.gameover = loadSound("assets/audio/gameover.mp3");
+    this.changeOutfit = loadSound("assets/audio/change-outfit.mp3");
 
     this.pastryGraphics = [
-      loadImage("assets/img-croissant.png"),
-      loadImage("assets/img-brezel.png"),
-      loadImage("assets/img-berliner.png"),
-      loadImage("assets/img-laugenecke.png"),
-      loadImage("assets/img-zimtschnecke.png")
-    ];
-
-    this.collectionGraphics = [
-      loadImage("assets/yum-blue.png"),
-      loadImage("assets/yum-green.png"),
-      loadImage("assets/yum-red.png"),
-      loadImage("assets/yum-salmon.png"),
-      loadImage("assets/yum-yellow.png")
+      loadImage("assets/pastries/img-croissant.png"),
+      loadImage("assets/pastries/img-brezel.png"),
+      loadImage("assets/pastries/img-berliner.png"),
+      loadImage("assets/pastries/img-laugenecke.png"),
+      loadImage("assets/pastries/img-zimtschnecke.png"),
+      loadImage("assets/pastries/magic-donut.gif")
     ];
   }
 
@@ -71,7 +67,7 @@ class Game {
         this.background.images[1].speed = 11;
         this.background.images[2].speed = 13;
       } else if (this.orderCount >= 8) {
-        this.pastries.push(new Pastry(Math.floor(Math.random() * 5)));
+        this.pastries.push(new Pastry(Math.floor(Math.random() * 6)));
         this.frames = 65;
         this.background.images[0].speed = 11;
         this.background.images[1].speed = 13;
@@ -139,6 +135,15 @@ class Game {
           "#zimtschnecke .collected"
         ).innerText = this.collectedZimtschnecke;
       }
+
+      if (
+        this.pastries[i].collides(this.player) &&
+        this.pastries[i].randomIndex === 5
+      ) {
+        this.pastries.splice(i, 1);
+        this.changeOutfit.play();
+        this.randomBakerDrawer();
+      }
     }
 
     // For all the pastries that made it into the array, draw them:
@@ -146,7 +151,18 @@ class Game {
       pastry.draw();
     });
 
-    this.player.draw();
+    // Condition constantly being checked; depends on if player caught magic donut:
+    if (this.colorfulBaker) {
+      this.player.drawRandomBaker();
+    } else {
+      this.player.draw();
+    }
+  }
+
+  // Resetting random index & toggling colorfulBaker state btw true / false:
+  randomBakerDrawer() {
+    this.player.randomBakerReset();
+    this.colorfulBaker = true;
   }
 
   orders() {
@@ -288,6 +304,7 @@ class Game {
     this.collectedBerliner = 0;
     this.collectedLaugenecke = 0;
     this.collectedZimtschnecke = 0;
+    this.colorfulBaker = false;
 
     for (const item of this.collected) {
       item.innerText = 0;
