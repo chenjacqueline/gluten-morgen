@@ -1,3 +1,6 @@
+const highScore = localStorage.setItem('highscore', 0);
+const currentScore = localStorage.getItem('highscore');
+
 class Game {
   constructor() {
     this.pastries = [];
