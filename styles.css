@@ -124,5 +124,7 @@ body {
 }
 
 #completed-orders p {
-  font-size: 32px;
+  font-size: 28px;
+  margin-top: 16px;
+  margin-bottom: 12px;
 }

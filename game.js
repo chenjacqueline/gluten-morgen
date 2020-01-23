@@ -1,6 +1,3 @@
-const highScore = localStorage.setItem('highscore', 0);
-const currentScore = localStorage.getItem('highscore');
-
 class Game {
   constructor() {
     this.pastries = [];
@@ -223,6 +220,18 @@ class Game {
   level() {
     // Always running with the draw()
     document.querySelector("#completed-orders p").innerText = this.orderCount;
+
+    if (highScore !== null && this.orderCount > highScore) {
+      highScore = this.orderCount;
+      localStorage.setItem("highscore", highScore);
+    } else if (highScore === null) {
+      localStorage.setItem("highscore", 0);
+    }
+
+    //  Displaying local high score:
+    document.querySelector(
+      "#completed-orders .highscore"
+    ).innerText = highScore;
 
     // Reveal more pastry types in the order as level increases:
     if (this.orderCount >= 2 && this.orderCount < 5) {

@@ -1,5 +1,6 @@
 let bgMusic;
 let jump;
+let highScore = parseInt(localStorage.getItem("highscore"));
 
 function preload() {
   bgMusic = loadSound("assets/audio/bg-music-2.wav");
