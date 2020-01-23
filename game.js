@@ -45,6 +45,11 @@ class Game {
     ];
   }
 
+  start() {
+    // Start screen
+    noLoop();
+  }
+
   draw() {
     // Generating pastries in the game
     this.background.draw();
@@ -272,8 +277,8 @@ class Game {
     }
   }
 
-  // For restarting the game entirely:
   restart() {
+    // For restarting the game after game over:
     this.pastries = [];
     this.orderCount = 0;
     bgMusic.setVolume(0.4);

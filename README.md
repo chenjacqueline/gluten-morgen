@@ -28,7 +28,7 @@ Mauro Gatti, "This is the workout that I love!"
 https://dribbble.com/shots/2977648-This-is-the-workout-that-I-love
 
 Disco donut GIF (with modifications):
-James Pierechod, "Happy national Donut day everyone!"
+James Pierechod, "Happy national Donut week everyone!"
 https://dribbble.com/shots/3495047-Happy-national-Donut-week-everyone
 
 Hula-hooping churro GIF (with modifications):

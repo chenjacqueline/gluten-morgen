@@ -9,7 +9,7 @@ function preload() {
 }
 
 function setup() {
-  bgMusic.setVolume(0.4);
+  bgMusic.setVolume(0.3);
   bgMusic.play();
   bgMusic.loop();
   let cnv = createCanvas(800, 550);
@@ -17,6 +17,7 @@ function setup() {
   cnv.parent("canvas");
   game.player.setup();
   game.orders();
+  game.start();
 }
 
 function draw() {
@@ -24,16 +25,23 @@ function draw() {
   game.level();
 }
 
-function muteSounds () {
+function muteSounds() {
   bgMusic.setVolume(0);
 }
 
 function keyPressed() {
+  // Start screen
+  if (game.orderCount === 0 && keyCode === 32) {
+    document.querySelector(".cover").style.display = "none";
+    loop();
+  }
+  // Player jump
   if (keyCode === 32) {
     game.player.jump();
     jump.play();
-    jump.setVolume(1.2);
+    // jump.setVolume(1.2);
   }
+  // Restarting after game over
   if (game.orderCount === "-" && keyCode === 13) {
     game.restart();
   }
