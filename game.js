@@ -255,15 +255,16 @@ class Game {
       game.reset();
     }
 
-    // Error handling for over-collection:
+    // Game over (error handling for over-collection):
     if (
       this.collectedCroissant > this.qtyCroissant ||
       this.collectedBrezel > this.qtyBrezel ||
       this.collectedBerliner > this.qtyBerliner ||
       this.collectedLaugenecke > this.qtyLaugenecke ||
-      this.collectedZimtschnecke > this.collectedZimtschnecke
+      this.collectedZimtschnecke > this.qtyZimtschnecke
     ) {
       background(this.imgGameOver);
+      bgMusic.setVolume(0);
       this.gameover.play();
       noLoop();
       // Setting a random value represent game over state for keyPressed function:
@@ -271,11 +272,11 @@ class Game {
     }
   }
 
+  // For restarting the game entirely:
   restart() {
-    // For restarting the game entirely:
     this.pastries = [];
     this.orderCount = 0;
-
+    bgMusic.setVolume(0.4);
     // Resetting amounts of collected pastries for new round
     this.collectedCroissant = 0;
     this.collectedBrezel = 0;

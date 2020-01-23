@@ -23,6 +23,11 @@ function draw() {
   game.draw();
   game.level();
 }
+
+function muteSounds () {
+  bgMusic.setVolume(0);
+}
+
 function keyPressed() {
   if (keyCode === 32) {
     game.player.jump();
